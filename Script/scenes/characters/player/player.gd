@@ -1,11 +1,15 @@
-extends Node
+class_name Player
+extends CharacterBody2D
 
+@onready var hit_component: HitComponent = $HitComponent
 
-# Called when the node enters the scene tree for the first time.
+@export var current_tool: DataTypes.Tools = DataTypes.Tools.None
+
+var player_direction: Vector2
+
 func _ready() -> void:
-	pass # Replace with function body.
+	ToolManager.tool_selected.connect(on_tool_selected)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func on_tool_selected(tool: DataTypes.Tools) -> void:
+	current_tool = tool
+	hit_component.current_tool = tool

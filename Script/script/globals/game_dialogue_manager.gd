@@ -1,11 +1,11 @@
 extends Node
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+signal give_crop_seeds
+signal feed_the_animals
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func action_give_crop_seeds() -> void:
+	give_crop_seeds.emit()
+
+func action_feed_animals() -> void:
+	feed_the_animals.emit()

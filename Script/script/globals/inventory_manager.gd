@@ -1,11 +1,25 @@
 extends Node
 
+var inventory: Dictionary = Dictionary()
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+signal inventory_changed
+
+func add_collectable(collectable_name: String) -> void:
+	inventory.get_or_add(collectable_name)
+	
+	if inventory[collectable_name] == null:
+		inventory[collectable_name] = 1
+	else:
+		inventory[collectable_name] += 1
+	
+	inventory_changed.emit()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func remove_collectable(collectable_name: String) -> void:
+	if inventory[collectable_name] == null:
+		inventory[collectable_name] = 0
+	else:
+		if inventory[collectable_name] > 0:
+			inventory[collectable_name] -= 1
+	
+	inventory_changed.emit()
